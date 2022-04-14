@@ -46,11 +46,11 @@ namespace Controllers
             return SenhaTag.GetSenhaTags();
         }
 
-        public static SenhaTag GetById(
-            
-        )
+        public static SenhaTag GetById(int Id)
         {
-            
+            SenhaTag senhaTag = SenhaTag.GetById(Id);
+
+            return senhaTag;
         }
     }
 }
