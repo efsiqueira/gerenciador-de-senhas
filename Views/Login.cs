@@ -22,8 +22,8 @@ namespace Views
             this.ClientSize = new System.Drawing.Size(280, 220);
             this.Text = "Login";
 
-            base.fields.Add(new Field(20, 20, "Login"));
-            base.fields.Add(new Field(20, 90, "Senha", '*'));;
+            base.fields.Add(new Field("login", 20, 20, "Login"));
+            base.fields.Add(new Field("password", 20, 90, "Senha", '*'));;
 
             buttonConfirmar = new Button();
             buttonConfirmar.Text = "Confirmar";
@@ -55,6 +55,19 @@ namespace Views
 
         private void buttonConfirmarClick(object sender, EventArgs e)
         {
+            Field fieldLogin = base.fields.Find((Field field) => field.id == "login");
+            Field fieldSenha = base.fields.Find((Field field) => field.id == "password");
+
+            try
+            {
+                Usuario.Auth(fieldLogin.textBox.Text, fieldSenha.textBox.Text);
+                (new Form()).Show();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
+            
             
         }
 
