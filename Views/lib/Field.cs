@@ -5,15 +5,19 @@ using System.Drawing;
 namespace lib {
     public class Field 
     {
+        public string id;
         public TextBox textBox;
         public Label label;
 
         public Field(
+            string id,
             int x,
             int y,
             string label,
             char passwordChar = ' '
         ){
+            this.id = id;
+            
             this.label = new Label();
             this.label.Text = label;
             this.label.Location = new Point(x, y);
