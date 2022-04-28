@@ -64,7 +64,7 @@ namespace Views
 
         private void btCategoriasClick(object sender, EventArgs e)
         {
-            
+            (new FormCategoria()).Show();
         }
 
         private void btTagsClick(object sender, EventArgs e)
