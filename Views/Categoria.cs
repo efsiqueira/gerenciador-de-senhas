@@ -6,7 +6,7 @@ using Controllers;
 
 namespace Views
 {
-    public class FormCategoria : Form
+    public class CategoriaView : Form
     {
         ListView listView;
         ListViewItem newLine;
@@ -15,7 +15,7 @@ namespace Views
         Button btExcluir;
         Button btVoltar;
 
-        public FormCategoria()
+        public CategoriaView()
         {
             this.ClientSize = new System.Drawing.Size(470, 470);
             this.Text = "Categorias";
@@ -76,11 +76,12 @@ namespace Views
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-
+            (new FormCategoria("Cadastrar")).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
         {
+            (new FormCategoria("Alterar")).Show();
             
         }
 
