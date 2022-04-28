@@ -49,8 +49,8 @@ namespace Views
                 this.Controls.Add(field.textBox);
             }
             this.Controls.Add(buttonConfirmar);
-            this.Controls.Add(buttonFechar);
             this.Controls.Add(buttonCadastrar);
+            this.Controls.Add(buttonFechar);
         }
 
         private void buttonConfirmarClick(object sender, EventArgs e)
@@ -61,14 +61,12 @@ namespace Views
             try
             {
                 Usuario.Auth(fieldLogin.textBox.Text, fieldSenha.textBox.Text);
-                (new Form()).Show();
+                (new FormMenu()).Show();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
-            
-            
         }
 
         private void buttonFecharClick(object sender, EventArgs e)
