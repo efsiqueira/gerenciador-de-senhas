@@ -21,7 +21,6 @@ namespace lib {
             this.label = new Label();
             this.label.Text = label;
             this.label.Location = new Point(x, y);
-            // this.label.Size = new Size();
 
             this.textBox = new TextBox();
             this.textBox.Location = new Point(x, y + 25);
