@@ -11,20 +11,22 @@ namespace lib {
 
         public Field(
             string id,
-            int x,
-            int y,
+            int xPoint,
+            int yPoint,
             string label,
+            int xSize = 240,
+            int ySize = 15,
             char passwordChar = ' '
         ){
             this.id = id;
             
             this.label = new Label();
             this.label.Text = label;
-            this.label.Location = new Point(x, y);
+            this.label.Location = new Point(xPoint, yPoint);
 
             this.textBox = new TextBox();
-            this.textBox.Location = new Point(x, y + 25);
-            this.textBox.Size = new Size(240,15);
+            this.textBox.Location = new Point(xPoint, yPoint + 25);
+            this.textBox.Size = new Size(xSize, ySize);
 
             if (!Char.IsWhiteSpace(passwordChar)) {
                 this.textBox.PasswordChar = passwordChar;

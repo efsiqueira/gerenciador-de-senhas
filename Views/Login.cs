@@ -1,11 +1,8 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using lib;
-using System.Diagnostics;
-using System.Threading;
 using Models;
 
 namespace Views
@@ -23,7 +20,7 @@ namespace Views
             this.Text = "Login";
 
             base.fields.Add(new Field("login", 20, 20, "Login"));
-            base.fields.Add(new Field("password", 20, 90, "Senha", '*'));;
+            base.fields.Add(new Field("password", 20, 90, "Senha", 240, 15, '*'));
 
             buttonConfirmar = new Button();
             buttonConfirmar.Text = "Confirmar";
