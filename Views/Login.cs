@@ -16,7 +16,7 @@ namespace Views
 
         public FormLogin(): base()
         {
-            this.ClientSize = new System.Drawing.Size(280, 220);
+            this.ClientSize = new System.Drawing.Size(280, 280);
             this.Text = "Login";
 
             base.fields.Add(new Field("login", 20, 20, "Login"));
@@ -25,19 +25,19 @@ namespace Views
             buttonConfirmar = new Button();
             buttonConfirmar.Text = "Confirmar";
             buttonConfirmar.Size = new Size(80,25);
-            buttonConfirmar.Location = new Point(20,170);
+            buttonConfirmar.Location = new Point(100,170);
             buttonConfirmar.Click += new EventHandler(this.buttonConfirmarClick);
             
             buttonCadastrar = new Button();
             buttonCadastrar.Text = "Cadastrar";
             buttonCadastrar.Size = new Size(80,25);
-            buttonCadastrar.Location = new Point(100,170);
+            buttonCadastrar.Location = new Point(100,200);
             buttonCadastrar.Click += new EventHandler(this.buttonCadastrarClick);
 
             buttonFechar = new Button();
             buttonFechar.Text = "Fechar";
             buttonFechar.Size = new Size(80,25);
-            buttonFechar.Location = new Point(180,170);
+            buttonFechar.Location = new Point(100,230);
             buttonFechar.Click += new EventHandler(this.buttonFecharClick);
 
             foreach (Field field in base.fields)
