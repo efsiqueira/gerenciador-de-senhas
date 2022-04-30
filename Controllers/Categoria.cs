@@ -12,14 +12,7 @@ namespace Controllers
             string Descricao
         )
         {
-            if(String.IsNullOrEmpty(Nome))
-            {
-                throw new Exception("Nome inválido");
-            }
-            if(String.IsNullOrEmpty(Descricao))
-            {
-                throw new Exception("Descrição inválida");
-            }
+            CategoriaController.ValidaInclusao(Nome, Descricao);
 
             return new Categoria(Nome, Descricao);
         }
@@ -74,6 +67,30 @@ namespace Controllers
         public static IEnumerable<Categoria> VisualizarCategoria()
         {
             return Categoria.GetCategorias();
+        }
+
+        public static void ValidaInclusao(string PrimeiroValor, string SegundoValor)
+        {
+            if(String.IsNullOrEmpty(PrimeiroValor))
+            {
+                throw new Exception($"{PrimeiroValor} inválido(a)");
+            }
+            if(String.IsNullOrEmpty(SegundoValor))
+            {
+                throw new Exception($"{SegundoValor} inválido(a)");
+            }
+        }
+
+        public static void ValidaAlterar(string PrimeiroValor, string SegundoValor)
+        {
+            if(!String.IsNullOrEmpty(PrimeiroValor))
+            {
+                throw new Exception($"{PrimeiroValor} inválido(a)");
+            }
+            if(!String.IsNullOrEmpty(SegundoValor))
+            {
+                throw new Exception($"{SegundoValor} inválido(a)");
+            }
         }
     }
 }
