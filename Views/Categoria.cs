@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using Models;
 using Controllers;
+using lib;
 
 namespace Views
 {
@@ -76,12 +77,12 @@ namespace Views
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-            (new FormCategoria("Cadastrar")).Show();
+            (new FormCategoria(Operation.Create)).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
         {
-            (new FormCategoria("Alterar")).Show();
+            (new FormCategoria(Operation.Update)).Show();
             
         }
 
@@ -89,7 +90,7 @@ namespace Views
         {
             Categoria categoria = new Categoria();
             ListViewItem selectedItem = listView.SelectedItems[0];
-            (new DeleteMessage(Convert.ToInt32(selectedItem.Text))).Show();
+            new DeleteMessage(Convert.ToInt32(selectedItem.Selected)).Show();
         }
 
         private void btVoltarClick(object sender, EventArgs e)

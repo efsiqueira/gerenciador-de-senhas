@@ -16,7 +16,8 @@ namespace lib {
             string label,
             int xSize = 240,
             int ySize = 15,
-            char passwordChar = ' '
+            char passwordChar = ' ',
+            string defaultValue = ""
         ){
             this.id = id;
             
@@ -27,6 +28,7 @@ namespace lib {
             this.textBox = new TextBox();
             this.textBox.Location = new Point(xPoint, yPoint + 25);
             this.textBox.Size = new Size(xSize, ySize);
+            this.textBox.Text = defaultValue;
 
             if (!Char.IsWhiteSpace(passwordChar)) {
                 this.textBox.PasswordChar = passwordChar;
