@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using lib;
+using Controllers;
+using Models;
 
 namespace Views
 {
@@ -13,13 +15,23 @@ namespace Views
         Button btConfirm;
         Button btEdit;
         Button btCancel;
-        public FormCategoria(string titleCategoria) : base()
+        public FormCategoria(
+            Operation operation,
+            int id = 0
+        ) : base()
         {
-            this.ClientSize = new System.Drawing.Size(300, 300);
-            this.Text = titleCategoria;
+            Categoria categoria = null;
+            if (id > 0) {
+                categoria = CategoriaController.GetCategoria(id);
+            }
 
-            base.fields.Add(new Field("name", 10, 20, "Nome", 280, 15));
-            base.fields.Add(new Field("description", 10, 90, "Descrição", 280, 15));
+            this.ClientSize = new System.Drawing.Size(300, 300);
+            this.Text = operation == Operation.Create 
+                ? "Criar"
+                : "Alterar";
+
+            base.fields.Add(new Field("name", 10, 20, "Nome", 280, 15, ' ', categoria != null ? categoria.Nome : null));
+            base.fields.Add(new Field("description", 10, 90, "Descrição", 280, 15, ' ', categoria != null ? categoria.Descricao : null));
 
             btConfirm = new Button();
             btConfirm.Text = "Confirmar";
@@ -45,13 +57,13 @@ namespace Views
                 this.Controls.Add(field.textBox);
             }
 
-            if (titleCategoria == "Alterar")
+            if (operation == Operation.Create)
             {
-                this.Controls.Add(btEdit);
+                this.Controls.Add(btConfirm);
             }
             else
             {
-                this.Controls.Add(btConfirm);
+                this.Controls.Add(btEdit);
             }
 
             this.Controls.Add(btCancel);
