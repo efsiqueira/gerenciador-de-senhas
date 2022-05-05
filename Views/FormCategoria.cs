@@ -10,16 +10,19 @@ namespace Views
 {
     public class FormCategoria : FormBase
     {
-
+        public static Operation operation;
+        public static int id;
         public List<Field> fields;
         Button btConfirm;
-        Button btEdit;
         Button btCancel;
         public FormCategoria(
             Operation operation,
             int id = 0
         ) : base()
         {
+            operation = operation;
+            id = id;
+
             Categoria categoria = null;
             if (id > 0) {
                 categoria = CategoriaController.GetCategoria(id);
@@ -38,12 +41,6 @@ namespace Views
             btConfirm.Size = new Size(80, 25);
             btConfirm.Location = new Point(110, 205);
             btConfirm.Click += new EventHandler(this.btConfirmClick);
-
-            btEdit = new Button();
-            btEdit.Text = "Alterar";
-            btEdit.Size = new Size(80, 25);
-            btEdit.Location = new Point(110, 205);
-            btEdit.Click += new EventHandler(this.btConfirmClick);
         
             btCancel = new Button();
             btCancel.Text = "Cancelar";
@@ -57,26 +54,37 @@ namespace Views
                 this.Controls.Add(field.textBox);
             }
 
-            if (operation == Operation.Create)
-            {
-                this.Controls.Add(btConfirm);
-            }
-            else
-            {
-                this.Controls.Add(btEdit);
-            }
-
+            this.Controls.Add(btConfirm);
             this.Controls.Add(btCancel);
         }
 
         private void btConfirmClick(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void btEditClick(object sender, EventArgs e)
-        {
-            this.Close();
+            
+            Field fieldName = base.fields.Find((Field field) => field.id == "name");
+            Field fieldDescription = base.fields.Find((Field field) => field.id == "description");
+            try
+            {
+                if (operation == Operation.Create)
+                {
+                    CategoriaController.IncluirCategoria(
+                        fieldName.textBox.Text,
+                        fieldDescription.textBox.Text
+                    );
+                }
+                else
+                {
+                    CategoriaController.AlterarCategoria(
+                        id,
+                        fieldName.textBox.Text,
+                        fieldDescription.textBox.Text
+                    );
+                }
+            }
+            catch (Exception)
+            {
+                ErrorMessage.Show();
+            }
         }
 
         private void btCancelClick(object sender, EventArgs e)

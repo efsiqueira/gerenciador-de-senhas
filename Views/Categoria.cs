@@ -77,20 +77,26 @@ namespace Views
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-            (new FormCategoria(Operation.Create)).Show();
+            new FormCategoria(Operation.Create).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
         {
-            (new FormCategoria(Operation.Update)).Show();
-            
+            try
+            {
+                ListViewItem selectedItem = listView.SelectedItems[0];
+                new FormCategoria(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
+            }
+            catch (Exception)
+            {
+                ErrorMessage.Show();
+            }
         }
 
         private void btExcluirClick(object sender, EventArgs e)
         {
-            Categoria categoria = new Categoria();
             ListViewItem selectedItem = listView.SelectedItems[0];
-            new DeleteMessage(Convert.ToInt32(selectedItem.Selected)).Show();
+            ConfirmMessage.Show();
         }
 
         private void btVoltarClick(object sender, EventArgs e)
