@@ -2,7 +2,8 @@ using System;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace lib {
+namespace lib
+{
     public class Field 
     {
         public string id;
@@ -18,7 +19,8 @@ namespace lib {
             int ySize = 15,
             char passwordChar = ' ',
             string defaultValue = ""
-        ){
+        )
+        {
             this.id = id;
             
             this.label = new Label();
@@ -30,7 +32,8 @@ namespace lib {
             this.textBox.Size = new Size(xSize, ySize);
             this.textBox.Text = defaultValue;
 
-            if (!Char.IsWhiteSpace(passwordChar)) {
+            if (!Char.IsWhiteSpace(passwordChar))
+            {
                 this.textBox.PasswordChar = passwordChar;
             }
         }
