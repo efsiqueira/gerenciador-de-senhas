@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Models;
+using lib;
 
 namespace Controllers
 {
@@ -25,14 +27,20 @@ namespace Controllers
         {
             Categoria categoria = GetCategoria(Id);
 
-            if(!String.IsNullOrEmpty(Nome))
+            if(String.IsNullOrEmpty(Nome))
             {
-                Nome = Nome;
+                Nome = categoria.Nome;
             }
-            if(!String.IsNullOrEmpty(Descricao))
+            if(String.IsNullOrEmpty(Descricao))
             {
-                Descricao = Descricao;
+                Descricao = categoria.Descricao;
             }
+
+            Categoria.AlterarCategoria(
+                Id,
+                Nome,
+                Descricao
+            );
 
             return categoria;
         }
@@ -50,18 +58,7 @@ namespace Controllers
             int Id
         )
         {
-            Categoria categoria = (
-                from Categoria in Categoria.GetCategorias()
-                    where Categoria.Id == Id
-                    select Categoria
-            ).First();
-
-            if(categoria == null)
-            {
-                throw new Exception("Categoria não encontrada");
-            }
-
-            return categoria;
+            return Categoria.GetCategoria(Id);
         }
 
         public static IEnumerable<Categoria> VisualizarCategoria()
@@ -73,24 +70,24 @@ namespace Controllers
         {
             if(String.IsNullOrEmpty(PrimeiroValor))
             {
-                throw new Exception($"{PrimeiroValor} inválido(a)");
+                ErrorMessage.Show("Erro!");
             }
             if(String.IsNullOrEmpty(SegundoValor))
             {
-                throw new Exception($"{SegundoValor} inválido(a)");
+                ErrorMessage.Show("Erro!");
             }
         }
 
-        public static void ValidaAlterar(string PrimeiroValor, string SegundoValor)
-        {
-            if(!String.IsNullOrEmpty(PrimeiroValor))
-            {
-                throw new Exception($"{PrimeiroValor} inválido(a)");
-            }
-            if(!String.IsNullOrEmpty(SegundoValor))
-            {
-                throw new Exception($"{SegundoValor} inválido(a)");
-            }
-        }
+        // public static void ValidaAlterar(string PrimeiroValor, string SegundoValor)
+        // {
+        //     if(!String.IsNullOrEmpty(PrimeiroValor))
+        //     {
+        //         ErrorMessage.Show("Erro!");
+        //     }
+        //     if(!String.IsNullOrEmpty(SegundoValor))
+        //     {
+        //         ErrorMessage.Show("Erro!");
+        //     }
+        // }
     }
 }
