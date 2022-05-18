@@ -10,8 +10,8 @@ namespace Views
 {
     public class FormCategoria : FormBase
     {
-        public static Operation operation;
-        public static int id;
+        public static Operation option;
+        public static int uid;
         public List<Field> fields;
         Button btConfirm;
         Button btCancel;
@@ -20,16 +20,16 @@ namespace Views
             int id = 0
         ) : base()
         {
-            operation = operation;
-            id = id;
-
+            option = operation;
+            uid = id;
+            
             Categoria categoria = null;
             if (id > 0) {
                 categoria = CategoriaController.GetCategoria(id);
             }
 
             this.ClientSize = new System.Drawing.Size(300, 300);
-            this.Text = operation == Operation.Create 
+            this.Text = operation == Operation.Create
                 ? "Criar"
                 : "Alterar";
 
@@ -65,20 +65,22 @@ namespace Views
             Field fieldDescription = base.fields.Find((Field field) => field.id == "description");
             try
             {
-                if (operation == Operation.Create)
+                if (option == Operation.Create)
                 {
                     CategoriaController.IncluirCategoria(
                         fieldName.textBox.Text,
                         fieldDescription.textBox.Text
                     );
+                    ConfirmMessage.Show("Categoria criada com sucesso");
                 }
-                else
+                else if (option == Operation.Update)
                 {
-                    CategoriaController.AlterarCategoria(
-                        id,
+                   CategoriaController.AlterarCategoria(
+                        uid,
                         fieldName.textBox.Text,
                         fieldDescription.textBox.Text
                     );
+                    ConfirmMessage.Show("Categoria alterada com sucesso");
                 }
             }
             catch (Exception)

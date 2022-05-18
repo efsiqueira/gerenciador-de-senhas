@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Repository;
+using lib;
 
 namespace Models
 {
@@ -52,7 +54,7 @@ namespace Models
             return base.GetHashCode();
         }
 
-        public static void AlterarCategoria(
+        public static Categoria AlterarCategoria(
             int Id,
             string Nome,
             string Descricao
@@ -65,23 +67,39 @@ namespace Models
             Context db = new Context();
             db.Categorias.Update(categoria);
             db.SaveChanges();
+
+            return categoria;
         }
 
 
         public static IEnumerable<Categoria> GetCategorias()
         {
             Context db = new Context();
-            return (from Categoria in db.Categorias select Categoria);
+            return from Categoria in db.Categorias select Categoria;
         }
 
-        public static Categoria GetCategoria(int Id)
+        public static Categoria GetCategoria(
+            int Id
+        )
         {
-            Context db = new Context();
-            IEnumerable<Categoria> categorias = from Categoria in db.Categorias
-                            where Categoria.Id == Id
-                            select Categoria;
+            try
+            {
+                Categoria categoria = (
+                    from Categoria in Categoria.GetCategorias()
+                        where Categoria.Id == Id
+                        select Categoria
+                ).First();
+                if (categoria == null)
+                {
+                    ErrorMessage.Show("Categoria não encontrada");
+                }
 
-            return categorias.First();
+                return categoria;
+            }
+            catch (Exception err)
+            {
+                throw new Exception(err.Message);
+            }
         }
 
         public static void RemoverCategoria(Categoria categoria)

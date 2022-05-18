@@ -95,8 +95,16 @@ namespace Views
 
         private void btExcluirClick(object sender, EventArgs e)
         {
-            ListViewItem selectedItem = listView.SelectedItems[0];
-            ConfirmMessage.Show();
+            try
+            {
+                ListViewItem selectedItem = listView.SelectedItems[0];
+                CategoriaController.RemoverItem(Convert.ToInt32(selectedItem.Text)); 
+            }
+            catch (Exception)
+            {
+                ErrorMessage.Show();
+            }
+            
         }
 
         private void btVoltarClick(object sender, EventArgs e)
