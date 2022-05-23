@@ -71,18 +71,7 @@ namespace Controllers
             int Id
         )
         {
-            Usuario usuario = (
-                from Usuario in Usuario.GetUsuarios()
-                    where Usuario.Id == Id
-                    select Usuario
-            ).First();
-
-            if(usuario == null)
-            {
-                throw new Exception("Usuário não encontrado");
-            }
-
-            return usuario;
+            return Usuario.GetUsuario(Id);
         }
 
         public static IEnumerable<Usuario> VisualizarUsuario()

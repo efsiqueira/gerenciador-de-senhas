@@ -77,17 +77,5 @@ namespace Controllers
                 ErrorMessage.Show("Erro!");
             }
         }
-
-        // public static void ValidaAlterar(string PrimeiroValor, string SegundoValor)
-        // {
-        //     if(!String.IsNullOrEmpty(PrimeiroValor))
-        //     {
-        //         ErrorMessage.Show("Erro!");
-        //     }
-        //     if(!String.IsNullOrEmpty(SegundoValor))
-        //     {
-        //         ErrorMessage.Show("Erro!");
-        //     }
-        // }
     }
 }
