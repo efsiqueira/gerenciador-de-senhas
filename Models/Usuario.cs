@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Repository;
-using System.Windows.Forms;
+using lib;
 
 namespace Models
 {
@@ -85,12 +85,24 @@ namespace Models
 
         public static Usuario GetUsuario(int Id)
         {
-            Context db = new Context();
-            IEnumerable<Usuario> usuarios = from Usuario in db.Usuarios
-                            where Usuario.Id == Id
-                            select Usuario;
+            try
+            {
+                Usuario usuario = (
+                    from Usuario in Usuario.GetUsuarios()
+                        where Usuario.Id == Id
+                        select Usuario
+                ).First();
+                if (usuario == null)
+                {
+                    ErrorMessage.Show("Usuário não encontrado");
+                }
 
-            return usuarios.First();
+                return usuario;
+            }
+            catch (Exception err)
+            {
+                throw new Exception(err.Message);
+            }
         }
 
         public static void RemoverUsuario(Usuario usuario)
