@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Repository;
+using lib;
+using System;
 
 namespace Models
 {
@@ -58,20 +60,31 @@ namespace Models
         public static IEnumerable<SenhaTag> GetSenhaTags()
         {
             Context db = new Context();
-            return (from SenhaTag in db.SenhaTags select SenhaTag);
+            return from SenhaTag in db.SenhaTags select SenhaTag;
         }
 
         public static SenhaTag GetSenhaTag(
-            int SenhaId,
-            int TagId
+            int Id
         )
         {
-            Context db = new Context();
-            IEnumerable<SenhaTag> senhaTags = from SenhaTag in db.SenhaTags
-                            where SenhaTag.SenhaId == SenhaId && SenhaTag.TagId == TagId
-                            select SenhaTag;
+            try
+            {
+                SenhaTag senhaTag = (
+                    from SenhaTag in SenhaTag.GetSenhaTags()
+                        where SenhaTag.SenhaId == Id
+                        select SenhaTag
+                ).First();
+                if (senhaTag == null)
+                {
+                    ErrorMessage.Show("Senha Tag não encontrada");
+                }
 
-            return senhaTags.First();
+                return senhaTag;
+            }
+            catch (Exception err)
+            {
+                throw new Exception(err.Message);
+            }
         }
 
         public static SenhaTag GetById(int Id)

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Repository;
+using System;
+using lib;
 
 namespace Models
 {
@@ -72,12 +74,24 @@ namespace Models
 
         public static Tag GetTag(int Id)
         {
-            Context db = new Context();
-            IEnumerable<Tag> tags = from Tag in db.Tags
-                            where Tag.Id == Id
-                            select Tag;
+            try
+            {
+                Tag tag = (
+                    from Tag in Tag.GetTags()
+                        where Tag.Id == Id
+                        select Tag
+                ).First();
+                if (tag == null)
+                {
+                    ErrorMessage.Show("Tag não encontrada");
+                }
 
-            return tags.First();
+                return tag;
+            }
+            catch (Exception err)
+            {
+                throw new Exception(err.Message);
+            }
         }
 
         public static void RemoverTag(Tag tag)
