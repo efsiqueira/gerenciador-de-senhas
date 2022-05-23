@@ -64,22 +64,22 @@ namespace Views
 
         private void btCategoriasClick(object sender, EventArgs e)
         {
-            (new CategoriaView()).Show();
+            new CategoriaView().Show();
         }
 
         private void btTagsClick(object sender, EventArgs e)
         {
-            
+            new TagView().Show();
         }
 
         private void btSenhasClick(object sender, EventArgs e)
         {
-            
+            new SenhaView().Show();
         }
 
         private void btUsuarioClick(object sender, EventArgs e)
         {
-            
+            new UsuarioView().Show();
         }
 
         private void btSairClick(object sender, EventArgs e)
