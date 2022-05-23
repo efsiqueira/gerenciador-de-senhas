@@ -89,18 +89,7 @@ namespace Controllers
             int Id
         )
         {
-            Senha senha = (
-                from Senha in Senha.GetSenhas()
-                    where Senha.Id == Id
-                    select Senha
-            ).First();
-
-            if(senha == null)
-            {
-                throw new Exception("Senha não encontrada");
-            }
-
-            return senha;
+            return Senha.GetSenha(Id);
         }
 
         public static IEnumerable<Senha> VisualizarSenha()

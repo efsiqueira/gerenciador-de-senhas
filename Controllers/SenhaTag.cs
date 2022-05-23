@@ -12,6 +12,9 @@ namespace Controllers
             int TagId
         )
         {
+            SenhaController.GetSenha(SenhaId);
+            TagController.GetTag(TagId);
+            
             return new SenhaTag(SenhaId, TagId);
         }
 
@@ -28,18 +31,7 @@ namespace Controllers
             int Id
         )
         {
-            SenhaTag senhaTag = (
-                from SenhaTag in SenhaTag.GetSenhaTags()
-                    where SenhaTag.Id == Id
-                    select SenhaTag
-            ).First();
-
-            if(senhaTag == null)
-            {
-                throw new Exception("Senha Tag não encontrada");
-            }
-
-            return senhaTag;
+            return SenhaTag.GetSenhaTag(Id);
 
         }public static IEnumerable<SenhaTag> VisualizarSenhaTag()
         {

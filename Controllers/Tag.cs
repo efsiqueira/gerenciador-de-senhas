@@ -47,18 +47,7 @@ namespace Controllers
             int Id
         )
         {
-            Tag tag = (
-                from Tag in Tag.GetTags()
-                    where Tag.Id == Id
-                    select Tag
-            ).First();
-
-            if(tag == null)
-            {
-                throw new Exception("Tag não encontrada");
-            }
-
-            return tag;
+            return Tag.GetTag(Id);
         }
 
         public static IEnumerable<Tag> VisualizarTag()
