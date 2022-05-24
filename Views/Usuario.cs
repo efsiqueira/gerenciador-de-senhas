@@ -19,7 +19,7 @@ namespace Views
         public UsuarioView()
         {
             this.ClientSize = new System.Drawing.Size(470, 470);
-            this.Text = "Categorias";
+            this.Text = "Usuários";
 
             btIncluir = new Button();
             btIncluir.Text = "Incluir";
@@ -77,7 +77,7 @@ namespace Views
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-            new FormCategoria(Operation.Create).Show();
+            new FormUsuario(Operation.Create).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                new FormCategoria(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
+                new FormUsuario(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
             }
             catch (Exception)
             {
@@ -98,7 +98,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                CategoriaController.RemoverItem(Convert.ToInt32(selectedItem.Text)); 
+                UsuarioController.RemoverUsuario(Convert.ToInt32(selectedItem.Text)); 
             }
             catch (Exception)
             {

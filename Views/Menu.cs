@@ -43,7 +43,7 @@ namespace Views
             btSenhas.Click += new EventHandler(this.btSenhasClick);
 
             btUsuario = new Button();
-            btUsuario.Text = "Usuário";
+            btUsuario.Text = "Usuários";
             btUsuario.Size = new Size(80, 25);
             btUsuario.Location = new Point(70, 150);
             btUsuario.Click += new EventHandler(this.btUsuarioClick);
