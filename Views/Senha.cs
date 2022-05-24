@@ -79,7 +79,7 @@ namespace Views
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-            new FormCategoria(Operation.Create).Show();
+            new FormSenha(Operation.Create).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
@@ -87,7 +87,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                new FormCategoria(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
+                new FormSenha(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
             }
             catch (Exception)
             {
