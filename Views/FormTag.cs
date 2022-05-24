@@ -8,14 +8,14 @@ using Models;
 
 namespace Views
 {
-    public class FormUsuario : FormBase
+    public class FormTag : FormBase
     {
         public static Operation option;
         public static int uid;
         public List<Field> fields;
         Button btConfirm;
         Button btCancel;
-        public FormUsuario(
+        public FormTag(
             Operation operation,
             int id = 0
         ) : base()
@@ -23,10 +23,10 @@ namespace Views
             option = operation;
             uid = id;
 
-            Usuario usuario = null;
+            Tag tag = null;
             if (id > 0)
             {
-                usuario = UsuarioController.GetUsuario(id);
+                tag = TagController.GetTag(id);
             }
 
             this.ClientSize = new System.Drawing.Size(300, 300);
@@ -34,20 +34,18 @@ namespace Views
                 ? "Criar"
                 : "Alterar";
 
-            base.fields.Add(new Field("name", 10, 20, "Nome", 280, 15));
-            base.fields.Add(new Field("email", 10, 80, "Email", 280, 15));
-            base.fields.Add(new Field("senha", 10, 140, "Senha", 280, 15, '*'));
-
+            base.fields.Add(new Field("description", 10, 90, "Descrição", 280, 15, ' ', tag != null ? tag.Descricao : null));
+        
             btConfirm = new Button();
             btConfirm.Text = "Confirmar";
             btConfirm.Size = new Size(80, 25);
-            btConfirm.Location = new Point(110, 220);
+            btConfirm.Location = new Point(110, 205);
             btConfirm.Click += new EventHandler(this.btConfirmClick);
         
             btCancel = new Button();
             btCancel.Text = "Cancelar";
             btCancel.Size = new Size(80, 25);
-            btCancel.Location = new Point(110, 255);
+            btCancel.Location = new Point(110, 240);
             btCancel.Click += new EventHandler(this.btCancelClick);
 
             foreach (Field field in base.fields)
@@ -62,29 +60,24 @@ namespace Views
 
         private void btConfirmClick(object sender, EventArgs e)
         {
-            Field fieldName = base.fields.Find((Field field) => field.id == "name");
-            Field fieldEmail = base.fields.Find((Field field) => field.id == "email");
-            Field fieldSenha = base.fields.Find((Field field) => field.id == "senha");
+            
+            Field fieldDescription = base.fields.Find((Field field) => field.id == "description");
             try
             {
                 if (option == Operation.Create)
                 {
-                    UsuarioController.IncluirUsuario(
-                        fieldName.textBox.Text,
-                        fieldEmail.textBox.Text,
-                        fieldSenha.textBox.Text
+                    TagController.IncluirTag(
+                        fieldDescription.textBox.Text
                     );
-                    MessageBox.Show("Usuário criado com sucesso");
+                    MessageBox.Show("Tag criada com sucesso");
                 }
                 else if (option == Operation.Update)
                 {
-                   UsuarioController.AlterarUsuario(
+                   TagController.AlterarTag(
                         uid,
-                        fieldName.textBox.Text,
-                        fieldEmail.textBox.Text,
-                        fieldSenha.textBox.Text
+                        fieldDescription.textBox.Text
                     );
-                    MessageBox.Show("Usuário alterado com sucesso");
+                    MessageBox.Show("Tag alterada com sucesso");
                 }
             }
             catch (Exception)
