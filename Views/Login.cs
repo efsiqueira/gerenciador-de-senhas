@@ -73,7 +73,7 @@ namespace Views
 
         private void buttonCadastrarClick(object sender, EventArgs e)
         {
-            this.Close();
+            new FormUsuario(Operation.Create).Show();
         }
     }
 }
