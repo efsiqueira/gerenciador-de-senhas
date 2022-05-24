@@ -13,6 +13,10 @@ namespace Views
         public static Operation option;
         public static int uid;
         public List<Field> fields;
+        Label lblCategoria;
+        ListBox listProcedimento;
+        CheckedListBox cListBoxTags;
+        ComboBox cbCategoria;
         Button btConfirm;
         Button btEdit;
         Button btCancel;
@@ -30,14 +34,31 @@ namespace Views
                 senha = SenhaController.GetSenha(id);
             }
 
-            this.ClientSize = new System.Drawing.Size(300, 300);
+            this.ClientSize = new System.Drawing.Size(300, 770);
             this.Text = operation == Operation.Create
                 ? "Criar"
                 : "Alterar";
 
             base.fields.Add(new Field("name", 10, 20, "Nome", 280, 15, ' ', senha != null ? senha.Nome : null));
-            base.fields.Add(new Field("category", 10, 90, "Categoria", 280, 15, ' ', senha != null ? senha.CategoriaId.ToString() : null));
             base.fields.Add(new Field("url", 10, 160, "Url", 280, 15, ' ', senha != null ? senha.Url : null));
+            base.fields.Add(new Field("user", 10, 230, "Usuário", 280, 15, ' ', senha != null ? senha.Usuario : null));
+            base.fields.Add(new Field("pass", 10, 300, "Senha", 280, 15, ' ', senha != null ? senha.SenhaEncrypt : null));
+
+            this.lblCategoria = new Label();
+            this.lblCategoria.Text = "Categoria";
+            this.lblCategoria.Location = new Point(10, 65);
+            this.lblCategoria.Size = new Size(280, 15);
+
+            // string[] categoria = {};
+			// cbCategoria = new ComboBox();
+			// foreach (var categorias in categoria)
+			// {
+			// 	cbCategoria.Items.Add(categorias);
+			// }
+			// cbCategoria.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			// cbCategoria.Location = new Point(10, 90);
+			// cbCategoria.Size = new Size(280, 15);
+			// cbCategoria.Sorted = true;
 
             btConfirm = new Button();
             btConfirm.Text = "Confirmar";
