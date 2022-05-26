@@ -64,7 +64,7 @@ namespace Views
             {
                 newLine = new ListViewItem(item.Id.ToString());
                 newLine.SubItems.Add(item.Nome);
-                newLine.SubItems.Add(item.Categoria.ToString());
+                newLine.SubItems.Add(item.Categoria.Nome.ToString());
                 newLine.SubItems.Add(item.Url);
 
                 listView.Items.Add(newLine);
