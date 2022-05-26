@@ -56,10 +56,11 @@ namespace Views
 			{
 				cbCategoria.Items.Add(item.Id + " - " + item.Nome);
 			}
+            cbCategoria.Text = senha.Categoria.Id + " - " + senha.Categoria.Nome;
 			// cbCategoria.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			cbCategoria.Location = new Point(10, 325);
 			cbCategoria.Size = new Size(280, 15);
-			cbCategoria.Sorted = true;
+			//cbCategoria.Sorted = true;
 
             this.lblProcedimento = new Label();
             this.lblProcedimento.Text = "Procedimento";
@@ -73,6 +74,7 @@ namespace Views
             this.txtProcedimento.WordWrap = true;
             this.txtProcedimento.Location = new Point(10, 400);
             this.txtProcedimento.Size = new Size(280, 100);
+            this.txtProcedimento.Text = senha.Procedimento;
 
             this.lblTags = new Label();
             this.lblTags.Text = "Tags";
@@ -84,10 +86,15 @@ namespace Views
             this.cListBoxTags.Size = new Size(280, 100);
             foreach (Tag item in TagController.VisualizarTag())
             {
-                string[] tags = { item.Descricao };
-                cListBoxTags.Items.AddRange(tags);
-                cListBoxTags.SelectionMode = SelectionMode.One;
-                cListBoxTags.CheckOnClick = true;
+                this.cListBoxTags.Items.Add(item.Descricao);
+            }
+            this.cListBoxTags.SelectionMode = SelectionMode.One;
+            this.cListBoxTags.CheckOnClick = true;
+
+            IEnumerable<SenhaTag> senhaTags = SenhaTagController.GetBySenhaId(senha.Id);
+            foreach (SenhaTag item in senhaTags)
+            {
+                this.cListBoxTags.SelectedItems.Add(item.Tag.Descricao);
             }
 
             btConfirm = new Button();

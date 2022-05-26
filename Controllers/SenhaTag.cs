@@ -44,5 +44,10 @@ namespace Controllers
 
             return senhaTag;
         }
+
+        public static IEnumerable<SenhaTag> GetBySenhaId(int Id)
+        {
+            return SenhaTag.GetBySenhaId(Id);
+        }
     }
 }

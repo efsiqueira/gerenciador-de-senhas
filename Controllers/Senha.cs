@@ -51,32 +51,42 @@ namespace Controllers
         )
         {
             Senha senha = GetSenha(Id);
-            CategoriaController.GetCategoria(CategoriaId);
+            Categoria categoria = CategoriaController.GetCategoria(CategoriaId);
 
             if(!String.IsNullOrEmpty(Nome))
             {
-                Nome = Nome;
+                Nome = senha.Nome;
             }
-            if(!String.IsNullOrEmpty(CategoriaId.ToString()))
+            if(!String.IsNullOrEmpty(categoria.Nome.ToString()))
             {
-                CategoriaId = CategoriaId;
+                categoria.Nome = senha.Categoria.Nome;
             }
             if(!String.IsNullOrEmpty(Url))
             {
-                Url = Url;
+                Url = senha.Url;
             }
             if(!String.IsNullOrEmpty(Usuario))
             {
-                Usuario = Usuario;
+                Usuario = senha.Usuario;
             }
             if(!String.IsNullOrEmpty(SenhaEncrypt))
             {
-                SenhaEncrypt = SenhaEncrypt;
+                SenhaEncrypt = senha.SenhaEncrypt;
             }
             if(!String.IsNullOrEmpty(Procedimento))
             {
-                Procedimento = Procedimento;
+                Procedimento = senha.Procedimento;
             }
+
+            Senha.AlterarSenha(
+                Id,
+                Nome,
+                categoria.Id,
+                Url,
+                Usuario,
+                SenhaEncrypt,
+                Procedimento
+            );
 
             return senha;
         }

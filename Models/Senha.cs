@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Repository;
 using Microsoft.EntityFrameworkCore;
-using System.Windows.Forms;
+using lib;
 
 namespace Models
 {
@@ -104,12 +105,25 @@ namespace Models
 
         public static Senha GetSenha(int Id)
         {
-            Context db = new Context();
-            IEnumerable<Senha> senhas = from Senha in db.Senhas
-                            where Senha.Id == Id
-                            select Senha;
+            try
+            {
+                Senha senha = (
+                    from Senha in Senha.GetSenhas()
+                        where Senha.Id == Id
+                        select Senha
+                ).First();
+                if (senha == null)
+                {
+                    ErrorMessage.Show("Senha não encontrada");
+                }
 
-            return senhas.First();
+                return senha;
+            }
+            catch (Exception err)
+            {
+                throw new Exception(err.Message);
+            }
+            
         }
 
         public static void RemoverSenha(Senha senha)
