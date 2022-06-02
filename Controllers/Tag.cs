@@ -26,10 +26,15 @@ namespace Controllers
         {
             Tag tag = GetTag(Id);
 
-            if(!String.IsNullOrEmpty(Descricao))
+            if(String.IsNullOrEmpty(Descricao))
             {
-                Descricao = Descricao;
+                Descricao = tag.Descricao;
             }
+
+            Tag.AlterarTag(
+                Id,
+                Descricao
+            );
 
             return tag;
         }

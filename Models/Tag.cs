@@ -52,7 +52,7 @@ namespace Models
             return base.GetHashCode();
         }
 
-        public static void AlterarTag(
+        public static Tag AlterarTag(
             int Id,
             string Descricao
         )
@@ -63,6 +63,8 @@ namespace Models
             Context db = new Context();
             db.Tags.Update(tag);
             db.SaveChanges();
+
+            return tag;
         }
 
 
