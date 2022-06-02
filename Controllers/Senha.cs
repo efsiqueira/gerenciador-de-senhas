@@ -53,27 +53,27 @@ namespace Controllers
             Senha senha = GetSenha(Id);
             Categoria categoria = CategoriaController.GetCategoria(CategoriaId);
 
-            if(!String.IsNullOrEmpty(Nome))
+            if(String.IsNullOrEmpty(Nome))
             {
                 Nome = senha.Nome;
             }
-            if(!String.IsNullOrEmpty(categoria.Nome.ToString()))
+            if(String.IsNullOrEmpty(categoria.Nome.ToString()))
             {
                 categoria.Nome = senha.Categoria.Nome;
             }
-            if(!String.IsNullOrEmpty(Url))
+            if(String.IsNullOrEmpty(Url))
             {
                 Url = senha.Url;
             }
-            if(!String.IsNullOrEmpty(Usuario))
+            if(String.IsNullOrEmpty(Usuario))
             {
                 Usuario = senha.Usuario;
             }
-            if(!String.IsNullOrEmpty(SenhaEncrypt))
+            if(String.IsNullOrEmpty(SenhaEncrypt))
             {
                 SenhaEncrypt = senha.SenhaEncrypt;
             }
-            if(!String.IsNullOrEmpty(Procedimento))
+            if(String.IsNullOrEmpty(Procedimento))
             {
                 Procedimento = senha.Procedimento;
             }
