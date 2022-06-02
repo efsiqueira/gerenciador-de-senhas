@@ -96,7 +96,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                TagController.RemoverTag(Convert.ToInt32(selectedItem.Text));
+                TagController.RemoverItem(Convert.ToInt32(selectedItem.Text));
             }
             catch (Exception)
             {

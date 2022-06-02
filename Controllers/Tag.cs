@@ -39,7 +39,7 @@ namespace Controllers
             return tag;
         }
 
-        public static Tag RemoverTag(
+        public static Tag RemoverItem(
             int Id
         )
         {
