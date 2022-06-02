@@ -73,7 +73,7 @@ namespace Models
         }
 
 
-        public static void AlterarSenha(
+        public static Senha AlterarSenha(
             int Id,
             string Nome,
             int CategoriaId,
@@ -94,6 +94,8 @@ namespace Models
             Context db = new Context();
             db.Senhas.Update(senha);
             db.SaveChanges();
+
+            return senha;
         }
 
 
