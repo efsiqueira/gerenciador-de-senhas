@@ -82,7 +82,7 @@ namespace Views
             this.cListBoxTags.Size = new Size(280, 100);
             foreach (Tag item in TagController.VisualizarTag())
             {
-                this.cListBoxTags.Items.Add(item.Descricao);
+                this.cListBoxTags.Items.Add(item.ToString());
             }
             this.cListBoxTags.SelectionMode = SelectionMode.One;
             this.cListBoxTags.CheckOnClick = true;            
@@ -141,7 +141,7 @@ namespace Views
             {
                 if (option == Operation.Create)
                 {
-                    SenhaController.IncluirSenha(
+                    Senha senha = SenhaController.IncluirSenha(
                         fieldName.textBox.Text,
                         Convert.ToInt32(categoriaId),
                         fieldUrl.textBox.Text,
@@ -149,11 +149,17 @@ namespace Views
                         fieldSenhaEncrypt.textBox.Text,
                         txtProcedimento.Text
                     );
-                    SenhaTagController.IncluirSenhaTag(
-                        99,
-                        Convert.ToInt32(cListBoxTags.SelectedItems[0])
-                    );
-                    MessageBox.Show("Senha criada com sucesso");
+                    foreach (var item in cListBoxTags.CheckedItems)
+                    {
+                        var tag = item.ToString();
+                        var idInicial = tag.IndexOf("- ");
+                        var tagId = tag.Substring(0, idInicial - 1);
+                        SenhaTagController.IncluirSenhaTag(
+                            senha.Id,
+                            Convert.ToInt32(tagId)
+                        );
+                    }
+                    MessageBox.Show("Senha cadastrada com sucesso!", "Sucesso", MessageBoxButtons.OK);
                     this.Close();
                 }
                 else if (option == Operation.Update)
@@ -167,7 +173,7 @@ namespace Views
                         fieldSenhaEncrypt.textBox.Text,
                         txtProcedimento.Text
                     );
-                    MessageBox.Show("Categoria alterada com sucesso");
+                    MessageBox.Show("Senha alterada com sucesso!", "Sucesso", MessageBoxButtons.OK);
                     this.Close();
                 }
             }
