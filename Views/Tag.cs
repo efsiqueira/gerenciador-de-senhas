@@ -96,7 +96,13 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                TagController.RemoverItem(Convert.ToInt32(selectedItem.Text));
+                int tagId = Convert.ToInt32(selectedItem.Text);
+                DialogResult result = MessageBox.Show($"Deseja excluir a tag {tagId}?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes)
+                {
+                    TagController.RemoverItem(tagId);
+                }
+                this.Close();
             }
             catch (Exception)
             {

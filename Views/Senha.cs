@@ -100,7 +100,13 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                SenhaController.RemoverSenha(Convert.ToInt32(selectedItem.Text));
+                int senhaId = Convert.ToInt32(selectedItem.Text);
+                DialogResult result = MessageBox.Show($"Deseja excluir a senha {senhaId}?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes)
+                {
+                    SenhaController.RemoverSenha(senhaId);
+                }
+                this.Close();
             }
             catch (Exception)
             {

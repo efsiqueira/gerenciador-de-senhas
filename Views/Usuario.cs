@@ -98,7 +98,13 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                UsuarioController.RemoverUsuario(Convert.ToInt32(selectedItem.Text)); 
+                int usuarioId = Convert.ToInt32(selectedItem.Text);
+                DialogResult result = MessageBox.Show($"Deseja excluir a categoria {usuarioId}?", "Excluir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes)
+                {
+                    UsuarioController.RemoverUsuario(usuarioId);
+                }
+                this.Close();
             }
             catch (Exception)
             {
