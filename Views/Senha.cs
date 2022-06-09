@@ -100,7 +100,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                CategoriaController.RemoverItem(Convert.ToInt32(selectedItem.Text)); 
+                SenhaController.RemoverSenha(Convert.ToInt32(selectedItem.Text));
             }
             catch (Exception)
             {

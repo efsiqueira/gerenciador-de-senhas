@@ -10,6 +10,7 @@ namespace Views
 {
     public class FormSenha : FormBase
     {
+        public static Senha senha = null;
         public static Operation option;
         public static int uid;
         public List<Field> fields;
@@ -29,7 +30,6 @@ namespace Views
             option = operation;
             uid = id;
 
-            Senha senha = null;
             if (id > 0)
             {
                 senha = SenhaController.GetSenha(id);
@@ -43,7 +43,7 @@ namespace Views
             base.fields.Add(new Field("name", 10, 20, "Nome", 280, 15, ' ', senha != null ? senha.Nome : null));
             base.fields.Add(new Field("url", 10, 90, "Url", 280, 15, ' ', senha != null ? senha.Url : null));
             base.fields.Add(new Field("user", 10, 160, "Usuário", 280, 15, ' ', senha != null ? senha.Usuario : null));
-            base.fields.Add(new Field("pass", 10, 230, "Senha", 280, 15, ' ', senha != null ? senha.SenhaEncrypt : null));
+            base.fields.Add(new Field("pass", 10, 230, "Senha", 280, 15, '*', senha != null ? senha.SenhaEncrypt : null));
 
             this.lblCategoria = new Label();
             this.lblCategoria.Text = "Categoria";
@@ -51,16 +51,13 @@ namespace Views
             this.lblCategoria.Size = new Size(280, 15);
 
             string[] categoria = {};
-			cbCategoria = new ComboBox();
+			this.cbCategoria = new ComboBox();
 			foreach (Categoria item in CategoriaController.VisualizarCategoria())
 			{
-				cbCategoria.Items.Add(item.Id + " - " + item.Nome);
+				this.cbCategoria.Items.Add(item.ToString());
 			}
-            cbCategoria.Text = senha.Categoria.Id + " - " + senha.Categoria.Nome;
-			// cbCategoria.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-			cbCategoria.Location = new Point(10, 325);
-			cbCategoria.Size = new Size(280, 15);
-			//cbCategoria.Sorted = true;
+			this.cbCategoria.Location = new Point(10, 325);
+			this.cbCategoria.Size = new Size(280, 15);
 
             this.lblProcedimento = new Label();
             this.lblProcedimento.Text = "Procedimento";
@@ -74,7 +71,6 @@ namespace Views
             this.txtProcedimento.WordWrap = true;
             this.txtProcedimento.Location = new Point(10, 400);
             this.txtProcedimento.Size = new Size(280, 100);
-            this.txtProcedimento.Text = senha.Procedimento;
 
             this.lblTags = new Label();
             this.lblTags.Text = "Tags";
@@ -89,13 +85,7 @@ namespace Views
                 this.cListBoxTags.Items.Add(item.Descricao);
             }
             this.cListBoxTags.SelectionMode = SelectionMode.One;
-            this.cListBoxTags.CheckOnClick = true;
-
-            IEnumerable<SenhaTag> senhaTags = SenhaTagController.GetBySenhaId(senha.Id);
-            foreach (SenhaTag item in senhaTags)
-            {
-                this.cListBoxTags.SelectedItems.Add(item.Tag.Descricao);
-            }
+            this.cListBoxTags.CheckOnClick = true;            
 
             btConfirm = new Button();
             btConfirm.Text = "Confirmar";
@@ -113,6 +103,18 @@ namespace Views
             {
                 this.Controls.Add(field.label);
                 this.Controls.Add(field.textBox);
+            }
+
+            if (senha != null) 
+            {
+                this.cbCategoria.Text = senha.Categoria.ToString();
+                this.txtProcedimento.Text = senha.Procedimento;
+
+                IEnumerable<SenhaTag> senhaTags = SenhaTagController.GetBySenhaId(senha.Id);
+                foreach (SenhaTag item in senhaTags)
+                {
+                    this.cListBoxTags.SelectedItems.Add(item.Tag.Descricao);
+                }
             }
 
             this.Controls.Add(lblCategoria);
@@ -147,7 +149,12 @@ namespace Views
                         fieldSenhaEncrypt.textBox.Text,
                         txtProcedimento.Text
                     );
+                    SenhaTagController.IncluirSenhaTag(
+                        99,
+                        Convert.ToInt32(cListBoxTags.SelectedItems[0])
+                    );
                     MessageBox.Show("Senha criada com sucesso");
+                    this.Close();
                 }
                 else if (option == Operation.Update)
                 {
@@ -161,6 +168,7 @@ namespace Views
                         txtProcedimento.Text
                     );
                     MessageBox.Show("Categoria alterada com sucesso");
+                    this.Close();
                 }
             }
             catch (Exception)
