@@ -71,7 +71,8 @@ namespace Views
                         fieldName.textBox.Text,
                         fieldDescription.textBox.Text
                     );
-                    MessageBox.Show("Categoria criada com sucesso");
+                    MessageBox.Show("Categoria cadastrada com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.Close();
                 }
                 else if (option == Operation.Update)
                 {
@@ -80,7 +81,8 @@ namespace Views
                         fieldName.textBox.Text,
                         fieldDescription.textBox.Text
                     );
-                    MessageBox.Show("Categoria alterada com sucesso");
+                    MessageBox.Show("Categoria alterada com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.Close();
                 }
             }
             catch (Exception)
