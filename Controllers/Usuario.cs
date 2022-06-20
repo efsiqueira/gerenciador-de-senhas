@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Models;
+using lib;
 
 namespace Controllers
 {
@@ -13,20 +14,7 @@ namespace Controllers
             string Senha
         )
         {
-            if(String.IsNullOrEmpty(Nome))
-            {
-                throw new Exception("Nome inválido");
-            }
-
-            if(String.IsNullOrEmpty(Email))
-            {
-                throw new Exception("Email inválido");
-            }
-
-            if(String.IsNullOrEmpty(Senha))
-            {
-                throw new Exception("Senha inválida");
-            }
+            UsuarioController.ValidaInclusao(Nome, Email, Senha);
 
             return new Usuario(Nome, Email, Senha);
         }
@@ -40,20 +28,27 @@ namespace Controllers
         {
             Usuario usuario = GetUsuario(Id);
 
-            if(!String.IsNullOrEmpty(Nome))
+            if(String.IsNullOrEmpty(Nome))
             {
-                Nome = Nome;
+                Nome = usuario.Nome;
             }
 
-            if(!String.IsNullOrEmpty(Email))
+            if(String.IsNullOrEmpty(Email))
             {
-                Email = Email;
+                Email = usuario.Email;
             }
 
-            if(!String.IsNullOrEmpty(Senha))
+            if(String.IsNullOrEmpty(Senha))
             {
-                Senha = Senha;
+                Senha = usuario.Senha;
             }
+
+            Usuario.AlterarUsuario(
+                Id,
+                Nome,
+                Email,
+                Senha
+            );
 
             return usuario;
         }
@@ -85,6 +80,24 @@ namespace Controllers
         )
         {
             Usuario.Auth(Email, Senha);
+        }
+
+        public static void ValidaInclusao(string Nome, string Email, string Senha)
+        {
+            if(String.IsNullOrEmpty(Nome))
+            {
+                ErrorMessage.Show("Erro!");
+            }
+
+            if(String.IsNullOrEmpty(Email))
+            {
+                ErrorMessage.Show("Erro!");
+            }
+
+            if(String.IsNullOrEmpty(Senha))
+            {   
+                ErrorMessage.Show("Erro!");
+            }
         }
     }
 }

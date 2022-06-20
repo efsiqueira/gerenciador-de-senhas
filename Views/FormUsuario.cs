@@ -34,9 +34,9 @@ namespace Views
                 ? "Criar"
                 : "Alterar";
 
-            base.fields.Add(new Field("name", 10, 20, "Nome", 280, 15));
-            base.fields.Add(new Field("email", 10, 80, "Email", 280, 15));
-            base.fields.Add(new Field("senha", 10, 140, "Senha", 280, 15, '*'));
+            base.fields.Add(new Field("name", 10, 20, "Nome", 280, 15, ' ', usuario != null ? usuario.Nome : null));
+            base.fields.Add(new Field("email", 10, 80, "Email", 280, 15, ' ', usuario != null ? usuario.Email : null));
+            base.fields.Add(new Field("senha", 10, 140, "Senha", 280, 15, '*', usuario != null ? usuario.Senha : null));
 
             btConfirm = new Button();
             btConfirm.Text = "Confirmar";
@@ -74,7 +74,8 @@ namespace Views
                         fieldEmail.textBox.Text,
                         fieldSenha.textBox.Text
                     );
-                    MessageBox.Show("Usuário criado com sucesso");
+                    MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.Close();
                 }
                 else if (option == Operation.Update)
                 {
@@ -84,7 +85,8 @@ namespace Views
                         fieldEmail.textBox.Text,
                         fieldSenha.textBox.Text
                     );
-                    MessageBox.Show("Usuário alterado com sucesso");
+                    MessageBox.Show("Usuário alterado com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.Close();
                 }
             }
             catch (Exception)
