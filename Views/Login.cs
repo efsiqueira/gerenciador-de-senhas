@@ -74,7 +74,6 @@ namespace Views
         private void buttonCadastrarClick(object sender, EventArgs e)
         {
             new FormUsuario(Operation.Create).Show();
-            this.Dispose();
         }
     }
 }
