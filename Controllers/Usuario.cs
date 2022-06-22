@@ -14,9 +14,7 @@ namespace Controllers
             string Senha
         )
         {
-            UsuarioController.ValidaInclusao(Nome, Email, Senha);
-
-            return new Usuario(Nome, Email, Senha);
+            return UsuarioController.ValidaInclusao(Nome, Email, Senha);
         }
 
         public static Usuario AlterarUsuario(
@@ -38,9 +36,9 @@ namespace Controllers
                 Email = usuario.Email;
             }
 
-            if(String.IsNullOrEmpty(Senha))
+            if(!String.IsNullOrEmpty(Senha) && !BCrypt.Net.BCrypt.Equals(Senha, usuario.Senha))
             {
-                Senha = usuario.Senha;
+                Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
             }
 
             Usuario.AlterarUsuario(
@@ -82,7 +80,7 @@ namespace Controllers
             Usuario.Auth(Email, Senha);
         }
 
-        public static void ValidaInclusao(string Nome, string Email, string Senha)
+        public static Usuario ValidaInclusao(string Nome, string Email, string Senha)
         {
             if(String.IsNullOrEmpty(Nome))
             {
@@ -98,6 +96,12 @@ namespace Controllers
             {   
                 ErrorMessage.Show("Erro!");
             }
+            else
+            {
+                Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
+            }
+
+            return new Usuario(Nome, Email, Senha);
         }
     }
 }

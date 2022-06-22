@@ -117,8 +117,7 @@ namespace Models
             try {
                 Usuario usuario = GetUsuarios()
                     .Where(it => it.Email == Email 
-                        && it.Senha == Senha
-                        //&& BCrypt.Net.BCrypt.Verify(Senha, it.Senha)
+                        && BCrypt.Net.BCrypt.Verify(Senha, it.Senha)
                     )
                     .First();
                 
