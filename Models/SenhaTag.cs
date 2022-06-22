@@ -105,6 +105,19 @@ namespace Models
                             select SenhaTag);
         }
 
+        public static SenhaTag GetBySenhaTagId(int SenhaId, int TagId)
+        {
+            Context db = new Context();
+            try {
+                return (from SenhaTag in db.SenhaTags
+                                where SenhaTag.SenhaId == SenhaId
+                                && SenhaTag.TagId == TagId
+                                select SenhaTag).First();
+            } catch {
+                return null;
+            }
+        }
+
         public static void RemoverSenhaTag(SenhaTag tag)
         {
             Context db = new Context();

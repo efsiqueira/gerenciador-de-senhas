@@ -81,9 +81,19 @@ namespace Views
             this.cListBoxTags = new CheckedListBox();
             this.cListBoxTags.Location = new Point(10, 550);
             this.cListBoxTags.Size = new Size(280, 100);
+            int index = 0;
             foreach (Tag item in TagController.VisualizarTag())
             {
                 this.cListBoxTags.Items.Add(item.ToString());
+                if (senha != null)
+                {
+                    SenhaTag hasSenhaTag = SenhaTagController.GetBySenhaTagId(senha.Id, item.Id);
+                    if (hasSenhaTag != null)
+                    {   
+                        this.cListBoxTags.SetItemChecked(index, true);
+                    }
+                }
+                index++;
             }
             this.cListBoxTags.SelectionMode = SelectionMode.One;
             this.cListBoxTags.CheckOnClick = true;
@@ -110,16 +120,6 @@ namespace Views
             {
                 this.cbCategoria.Text = senha.Categoria.ToString();
                 this.txtProcedimento.Text = senha.Procedimento;
-
-                //IEnumerable<SenhaTag> senhaTags = SenhaTagController.GetBySenhaId(senha.Id);
-                //foreach (SenhaTag item in senhaTags)
-                //{
-                //    this.cListBoxTags.SelectedItems.Add(item.Tag.Descricao);
-                //}
-                foreach (int item in cListBoxTags.CheckedIndices)
-                {
-                    this.cListBoxTags.GetItemCheckState(item);
-                }
             }
 
             this.Controls.Add(lblCategoria);
