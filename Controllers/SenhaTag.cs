@@ -49,5 +49,10 @@ namespace Controllers
         {
             return SenhaTag.GetBySenhaId(Id);
         }
+
+        public static SenhaTag GetBySenhaTagId(int SenhaId, int TagId)
+        {
+            return SenhaTag.GetBySenhaTagId(SenhaId, TagId);
+        }
     }
 }
