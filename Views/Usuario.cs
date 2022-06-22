@@ -75,9 +75,11 @@ namespace Views
             this.Controls.Add(btVoltar);
         }
 
+
         private void btIncluirClick(object sender, EventArgs e)
         {
             new FormUsuario(Operation.Create).Show();
+            this.Dispose();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
@@ -86,6 +88,7 @@ namespace Views
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
                 new FormUsuario(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
+                this.Dispose();
             }
             catch (Exception)
             {

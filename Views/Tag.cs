@@ -76,6 +76,7 @@ namespace Views
         private void btIncluirClick(object sender, EventArgs e)
         {
             new FormTag(Operation.Create).Show();
+            this.Dispose();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
@@ -84,6 +85,7 @@ namespace Views
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
                 new FormTag(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
+                this.Dispose();
             }
             catch (Exception)
             {

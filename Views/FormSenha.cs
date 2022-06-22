@@ -10,7 +10,7 @@ namespace Views
 {
     public class FormSenha : FormBase
     {
-        public static Senha senha = null;
+        //public static Senha senha;
         public static Operation option;
         public static int uid;
         public List<Field> fields;
@@ -30,6 +30,7 @@ namespace Views
             option = operation;
             uid = id;
 
+            Senha senha = null;
             if (id > 0)
             {
                 senha = SenhaController.GetSenha(id);
@@ -85,7 +86,7 @@ namespace Views
                 this.cListBoxTags.Items.Add(item.ToString());
             }
             this.cListBoxTags.SelectionMode = SelectionMode.One;
-            this.cListBoxTags.CheckOnClick = true;            
+            this.cListBoxTags.CheckOnClick = true;
 
             btConfirm = new Button();
             btConfirm.Text = "Confirmar";
@@ -110,10 +111,14 @@ namespace Views
                 this.cbCategoria.Text = senha.Categoria.ToString();
                 this.txtProcedimento.Text = senha.Procedimento;
 
-                IEnumerable<SenhaTag> senhaTags = SenhaTagController.GetBySenhaId(senha.Id);
-                foreach (SenhaTag item in senhaTags)
+                //IEnumerable<SenhaTag> senhaTags = SenhaTagController.GetBySenhaId(senha.Id);
+                //foreach (SenhaTag item in senhaTags)
+                //{
+                //    this.cListBoxTags.SelectedItems.Add(item.Tag.Descricao);
+                //}
+                foreach (int item in cListBoxTags.CheckedIndices)
                 {
-                    this.cListBoxTags.SelectedItems.Add(item.Tag.Descricao);
+                    this.cListBoxTags.GetItemCheckState(item);
                 }
             }
 
@@ -164,7 +169,7 @@ namespace Views
                 }
                 else if (option == Operation.Update)
                 {
-                   SenhaController.AlterarSenha(
+                    Senha senha = SenhaController.AlterarSenha(
                         uid,
                         fieldName.textBox.Text,
                         Convert.ToInt32(categoriaId),
@@ -173,6 +178,17 @@ namespace Views
                         fieldSenhaEncrypt.textBox.Text,
                         txtProcedimento.Text
                     );
+                    // Provisório
+                    foreach (var item in cListBoxTags.CheckedItems)
+                    {
+                        var tag = item.ToString();
+                        var idInicial = tag.IndexOf("- ");
+                        var tagId = tag.Substring(0, idInicial - 1);
+                        SenhaTagController.IncluirSenhaTag(
+                            senha.Id,
+                            Convert.ToInt32(tagId)
+                        );
+                    }
                     MessageBox.Show("Senha alterada com sucesso!", "Sucesso", MessageBoxButtons.OK);
                     this.Close();
                 }
