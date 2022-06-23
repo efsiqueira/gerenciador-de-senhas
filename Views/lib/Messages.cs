@@ -30,8 +30,8 @@ namespace lib {
         public static DialogResult Show(string Message = "Erro desconhecido")
         {
             return MessageBox.Show(
-                "Erro",
                 $"Ocorreu um erro ao executar a ação: {Message}",
+                "Erro",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error
             );
