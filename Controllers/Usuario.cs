@@ -1,8 +1,7 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Models;
-using lib;
 
 namespace Controllers
 {
@@ -14,7 +13,9 @@ namespace Controllers
             string Senha
         )
         {
-            return UsuarioController.ValidaInclusao(Nome, Email, Senha);
+            ValidateInsert(Nome, Email, Senha);
+
+            return new Usuario(Nome, Email, BCrypt.Net.BCrypt.HashPassword(Senha));
         }
 
         public static Usuario AlterarUsuario(
@@ -80,28 +81,35 @@ namespace Controllers
             Usuario.Auth(Email, Senha);
         }
 
-        public static Usuario ValidaInclusao(string Nome, string Email, string Senha)
+        public static void ValidateInsert(string Nome, string Email, string Senha)
         {
             if(String.IsNullOrEmpty(Nome))
             {
-                ErrorMessage.Show("Erro!");
+                throw new Exception("Nome do usuário não pode ser vazio.");
             }
 
             if(String.IsNullOrEmpty(Email))
             {
-                ErrorMessage.Show("Erro!");
+                throw new Exception("Email do usuário não pode ser vazio.");
+            }
+
+            Regex rx = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            if(!rx.IsMatch(Email))
+            {
+                throw new Exception("Email inválido.");
             }
 
             if(String.IsNullOrEmpty(Senha))
             {   
-                ErrorMessage.Show("Erro!");
-            }
-            else
-            {
-                Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
+                throw new Exception("Senha não pode ser vazio.");
             }
 
-            return new Usuario(Nome, Email, Senha);
+            int minChar = 8;
+            bool invalidPass = Senha.Length < minChar;
+            if (invalidPass)
+            {
+                throw new Exception("A senha deve possuir no mínimo 8 caracteres.");
+            }        
         }
     }
 }
