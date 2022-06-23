@@ -10,7 +10,7 @@ namespace Views
 {
     public class FormSenha : FormBase
     {
-        //public static Senha senha;
+        public static int categoriaId;
         public static Operation option;
         public static int uid;
         public List<Field> fields;
@@ -139,9 +139,16 @@ namespace Views
             Field fieldUrl = base.fields.Find((Field field) => field.id == "url");
             Field fieldUsuario = base.fields.Find((Field field) => field.id == "user");
             Field fieldSenhaEncrypt = base.fields.Find((Field field) => field.id == "pass");
-            var categoria = cbCategoria.SelectedItem.ToString();
-            var inicioId = categoria.IndexOf("- ");
-            var categoriaId = categoria.Substring(0, inicioId - 1);
+            try
+            {
+                var categoria = cbCategoria.SelectedItem.ToString();
+                var inicioId = categoria.IndexOf("- ");
+                int categoriaId = Convert.ToInt32(categoria.Substring(0, inicioId - 1));
+            }
+            catch (Exception)
+            {
+                ErrorMessage.Show("Categoria não pode ser vazio.");
+            }
             try
             {
                 if (option == Operation.Create)
@@ -178,7 +185,6 @@ namespace Views
                         fieldSenhaEncrypt.textBox.Text,
                         txtProcedimento.Text
                     );
-                    // Provisório
                     foreach (var item in cListBoxTags.CheckedItems)
                     {
                         var tag = item.ToString();
@@ -193,9 +199,9 @@ namespace Views
                     this.Close();
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                ErrorMessage.Show();
+                ErrorMessage.Show(err.Message);
             }
         }
 
