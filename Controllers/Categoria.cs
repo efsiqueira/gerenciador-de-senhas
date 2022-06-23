@@ -14,7 +14,7 @@ namespace Controllers
             string Descricao
         )
         {
-            CategoriaController.ValidaInclusao(Nome, Descricao);
+            ValidateInsert(Nome, Descricao);
 
             return new Categoria(Nome, Descricao);
         }
@@ -66,13 +66,13 @@ namespace Controllers
             return Categoria.GetCategorias();
         }
 
-        public static void ValidaInclusao(string PrimeiroValor, string SegundoValor)
+        public static void ValidateInsert(string Nome, string Descricao)
         {
-            if(String.IsNullOrEmpty(PrimeiroValor))
+            if(String.IsNullOrEmpty(Nome))
             {
                 ErrorMessage.Show("Erro!");
             }
-            if(String.IsNullOrEmpty(SegundoValor))
+            if(String.IsNullOrEmpty(Descricao))
             {
                 ErrorMessage.Show("Erro!");
             }
