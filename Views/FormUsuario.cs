@@ -89,9 +89,9 @@ namespace Views
                     this.Close();
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                ErrorMessage.Show();
+                ErrorMessage.Show(err.Message);
             }
         }
 
