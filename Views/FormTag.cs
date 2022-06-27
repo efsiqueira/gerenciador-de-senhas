@@ -80,9 +80,9 @@ namespace Views
                     MessageBox.Show("Tag alterada com sucesso");
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                ErrorMessage.Show();
+                ErrorMessage.Show(err.Message);
             }
         }
 
