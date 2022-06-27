@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using Models;
 
@@ -13,7 +12,7 @@ namespace Controllers
         {
             if(String.IsNullOrEmpty(Descricao))
             {
-                throw new Exception("Descrição inválida");
+                throw new Exception("Descrição não pode ser vazio.");
             }
 
             return new Tag(Descricao);
