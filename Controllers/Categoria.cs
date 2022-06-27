@@ -1,9 +1,6 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using Models;
-using lib;
 
 namespace Controllers
 {
@@ -70,11 +67,11 @@ namespace Controllers
         {
             if(String.IsNullOrEmpty(Nome))
             {
-                ErrorMessage.Show("Erro!");
+                throw new Exception("Nome da categoria não pode ser vazio.");
             }
             if(String.IsNullOrEmpty(Descricao))
             {
-                ErrorMessage.Show("Erro!");
+                throw new Exception("Descrição da categoria não pode ser vazia.");
             }
         }
     }
