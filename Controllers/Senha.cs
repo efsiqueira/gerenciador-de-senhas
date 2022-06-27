@@ -18,7 +18,7 @@ namespace Controllers
         {
             if(String.IsNullOrEmpty(Nome))
             {
-                throw new Exception("Nome inválido");
+                throw new Exception("Nome não pode ser vazio.");
             }
             if(String.IsNullOrEmpty(Url))
             {
