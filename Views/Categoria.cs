@@ -59,6 +59,18 @@ namespace Views
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
+            this.loadList();
+
+            this.Controls.Add(listView);
+            this.Controls.Add(btIncluir);
+            this.Controls.Add(btAlterar);
+            this.Controls.Add(btExcluir);
+            this.Controls.Add(btVoltar);
+        }
+        public void loadList()
+        {
+            this.listView.Items.Clear();
+
             foreach (Categoria item in CategoriaController.VisualizarCategoria())
             {
                 newLine = new ListViewItem(item.Id.ToString());
@@ -67,18 +79,12 @@ namespace Views
 
                 listView.Items.Add(newLine);
             }
-
-            this.Controls.Add(listView);
-            this.Controls.Add(btIncluir);
-            this.Controls.Add(btAlterar);
-            this.Controls.Add(btExcluir);
-            this.Controls.Add(btVoltar);
         }
+        
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-            new FormCategoria(Operation.Create).Show();
-            this.Dispose();
+            new FormCategoria(this, Operation.Create).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
@@ -86,8 +92,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                new FormCategoria(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
-                this.Dispose();
+                new FormCategoria(this, Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
             }
             catch (Exception)
             {
@@ -105,8 +110,9 @@ namespace Views
                 if(result == DialogResult.Yes)
                 {
                     CategoriaController.RemoverItem(categoriaId);
+                    this.loadList();
                 }
-                this.Close();
+                // this.Close();
             }
             catch (Exception)
             {
