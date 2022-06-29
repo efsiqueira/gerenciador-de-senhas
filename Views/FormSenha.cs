@@ -5,6 +5,7 @@ using System.Drawing;
 using lib;
 using Controllers;
 using Models;
+using System.Linq;
 
 namespace Views
 {
@@ -166,9 +167,9 @@ namespace Views
                     );
                     foreach (var item in cListBoxTags.CheckedItems)
                     {
-                        var tag = item.ToString();
-                        var idInicial = tag.IndexOf("- ");
-                        var tagId = tag.Substring(0, idInicial - 1);
+                        string tag = item.ToString();
+                        int idInicial = tag.IndexOf("- ");
+                        string tagId = tag.Substring(0, idInicial - 1);
                         SenhaTagController.IncluirSenhaTag(
                             senha.Id,
                             Convert.ToInt32(tagId)
@@ -189,16 +190,30 @@ namespace Views
                         fieldSenhaEncrypt.textBox.Text,
                         txtProcedimento.Text
                     );
-                    foreach (var item in cListBoxTags.CheckedItems)
+                    IEnumerable<SenhaTag> tags = SenhaTagController.GetBySenhaId(uid);
+                    List<int> checkedIds = new List<int>();
+                    foreach (object item in cListBoxTags.CheckedItems)
                     {
-                        var tag = item.ToString();
-                        var idInicial = tag.IndexOf("- ");
-                        var tagId = tag.Substring(0, idInicial - 1);
-                        SenhaTagController.IncluirSenhaTag(
-                            senha.Id,
-                            Convert.ToInt32(tagId)
-                        );
+                        string tag = item.ToString();
+                        int idInicial = tag.IndexOf("- ");
+                        string sTagId = tag.Substring(0, idInicial - 1);
+                        int tagId = Convert.ToInt32(sTagId);
+                        checkedIds.Add(tagId);
+                        List<SenhaTag> tagsList = tags.Where(tag => tag.TagId == tagId).ToList();
+                        if (tagsList.Count == 0) {
+                            SenhaTagController.IncluirSenhaTag(
+                                senha.Id,
+                                tagId
+                            );
+                        }
                     }
+                    foreach (SenhaTag senhaTag in tags) {
+                        List<int> tagsList = checkedIds.Where(id => id == senhaTag.TagId).ToList();
+                        if (tagsList.Count == 0) {
+                            SenhaTagController.RemoverSenhaTag(senhaTag.Id);
+                        }
+                    }
+
                     MessageBox.Show("Senha alterada com sucesso!", "Sucesso", MessageBoxButtons.OK);
                     this.parent.loadList();
                     this.Close();
