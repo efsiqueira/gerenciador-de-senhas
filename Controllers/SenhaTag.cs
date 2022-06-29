@@ -20,7 +20,7 @@ namespace Controllers
             int Id
         )
         {
-            SenhaTag senhaTag = GetSenhaTag(Id);
+            SenhaTag senhaTag = GetById(Id);
             SenhaTag.RemoverSenhaTag(senhaTag);
             return senhaTag;
         }
