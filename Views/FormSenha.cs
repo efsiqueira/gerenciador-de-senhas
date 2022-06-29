@@ -13,7 +13,6 @@ namespace Views
         public static int categoriaId;
         public static Operation option;
         public static int uid;
-        public List<Field> fields;
         Label lblCategoria;
         Label lblProcedimento;
         Label lblTags;
@@ -142,11 +141,12 @@ namespace Views
             Field fieldUrl = base.fields.Find((Field field) => field.id == "url");
             Field fieldUsuario = base.fields.Find((Field field) => field.id == "user");
             Field fieldSenhaEncrypt = base.fields.Find((Field field) => field.id == "pass");
+            int categoriaId = 0;
             try
             {
-                var categoria = cbCategoria.SelectedItem.ToString();
-                var inicioId = categoria.IndexOf("- ");
-                int categoriaId = Convert.ToInt32(categoria.Substring(0, inicioId - 1));
+                string categoria = cbCategoria.SelectedItem.ToString();
+                int inicioId = categoria.IndexOf("- ");
+                categoriaId = Convert.ToInt32(categoria.Substring(0, inicioId - 1));
             }
             catch (Exception)
             {

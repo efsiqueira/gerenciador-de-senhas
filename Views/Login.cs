@@ -9,7 +9,6 @@ namespace Views
 {
     public class FormLogin : FormBase
     {
-        public List<Field> fields;
         Button buttonConfirmar;
         Button buttonFechar;
         Button buttonCadastrar;
