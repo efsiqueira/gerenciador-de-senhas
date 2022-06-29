@@ -37,10 +37,23 @@ namespace Controllers
                 Email = usuario.Email;
             }
 
+            Regex rx = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            if(!rx.IsMatch(Email))
+            {
+                throw new Exception("Email inválido.");
+            }
+
             if(!String.IsNullOrEmpty(Senha) && !BCrypt.Net.BCrypt.Equals(Senha, usuario.Senha))
             {
                 Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
             }
+
+            int minChar = 8;
+            bool invalidPass = Senha.Length < minChar;
+            if (invalidPass)
+            {
+                throw new Exception("A senha deve possuir no mínimo 8 caracteres.");
+            }   
 
             Usuario.AlterarUsuario(
                 Id,

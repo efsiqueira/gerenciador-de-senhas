@@ -70,6 +70,11 @@ namespace Controllers
             {
                 Url = senha.Url;
             }
+            Regex rx = new Regex(@"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$");
+            if(!rx.IsMatch(Url))
+            {
+                throw new Exception("Url inválido.");
+            }
             if(String.IsNullOrEmpty(Usuario))
             {
                 Usuario = senha.Usuario;
