@@ -69,25 +69,25 @@ A aplicação conta com 5 entidades:
 
 Para essa aplicação serão necessárias as seguintes tarefas:
 
-- [ ] Processo de Login
-- [ ] Menu Principal
-- [ ] Lista de Categorias
-- [ ] Lista de Tags
-- [ ] Lista de Usuários
-- [ ] Lista de Senhas
-- [ ] Criar Categoria
-- [ ] Criar Tag
-- [ ] Criar Usuário
-- [ ] Criar Senha
-- [ ] Alterar Categoria
-- [ ] Alterar Tag
-- [ ] Alterar Usuário
-- [ ] Alterar Senha
-- [ ] Excluir Categoria
-- [ ] Excluir Tag
-- [ ] Excluir Usuário
-- [ ] Excluir Senha
-- [ ] Criar Relação entre Senha e Tag
+- [x] Processo de Login
+- [x] Menu Principal
+- [x] Lista de Categorias
+- [x] Lista de Tags
+- [x] Lista de Usuários
+- [x] Lista de Senhas
+- [x] Criar Categoria
+- [x] Criar Tag
+- [x] Criar Usuário
+- [x] Criar Senha
+- [x] Alterar Categoria
+- [x] Alterar Tag
+- [x] Alterar Usuário
+- [x] Alterar Senha
+- [x] Excluir Categoria
+- [x] Excluir Tag
+- [x] Excluir Usuário
+- [x] Excluir Senha
+- [x] Criar Relação entre Senha e Tag
 - [ ] Excluir Relação entre Senha e Tag
 
 ### Diferenciais
