@@ -59,6 +59,18 @@ namespace Views
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
+            this.loadList();
+
+            this.Controls.Add(listView);
+            this.Controls.Add(btIncluir);
+            this.Controls.Add(btAlterar);
+            this.Controls.Add(btExcluir);
+            this.Controls.Add(btVoltar);
+        }
+        public void loadList()
+        {
+            this.listView.Items.Clear();
+
             foreach (Usuario item in UsuarioController.VisualizarUsuario())
             {
                 newLine = new ListViewItem(item.Id.ToString());
@@ -67,19 +79,11 @@ namespace Views
 
                 listView.Items.Add(newLine);
             }
-
-            this.Controls.Add(listView);
-            this.Controls.Add(btIncluir);
-            this.Controls.Add(btAlterar);
-            this.Controls.Add(btExcluir);
-            this.Controls.Add(btVoltar);
         }
-
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-            new FormUsuario(Operation.Create).Show();
-            this.Dispose();
+            new FormUsuario(this, Operation.Create).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
@@ -87,8 +91,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                new FormUsuario(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
-                this.Dispose();
+                new FormUsuario(this, Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
             }
             catch (Exception)
             {
@@ -107,7 +110,7 @@ namespace Views
                 {
                     UsuarioController.RemoverUsuario(usuarioId);
                 }
-                this.Close();
+                this.loadList();
             }
             catch (Exception)
             {

@@ -15,11 +15,14 @@ namespace Views
         public List<Field> fields;
         Button btConfirm;
         Button btCancel;
+        UsuarioView parent;
         public FormUsuario(
+            UsuarioView parent,
             Operation operation,
             int id = 0
         ) : base()
         {
+            this.parent = parent;
             option = operation;
             uid = id;
 
@@ -75,6 +78,7 @@ namespace Views
                         fieldSenha.textBox.Text
                     );
                     MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.parent.loadList();
                     this.Close();
                 }
                 else if (option == Operation.Update)
@@ -86,6 +90,7 @@ namespace Views
                         fieldSenha.textBox.Text
                     );
                     MessageBox.Show("Usuário alterado com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.parent.loadList();
                     this.Close();
                 }
             }

@@ -15,11 +15,14 @@ namespace Views
         public List<Field> fields;
         Button btConfirm;
         Button btCancel;
+        CategoriaView parent;
         public FormCategoria(
+            CategoriaView parent,
             Operation operation,
             int id = 0
         ) : base()
         {
+            this.parent = parent;
             option = operation;
             uid = id;
             
@@ -72,6 +75,7 @@ namespace Views
                         fieldDescription.textBox.Text
                     );
                     MessageBox.Show("Categoria cadastrada com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.parent.loadList();
                     this.Close();
                 }
                 else if (option == Operation.Update)
@@ -82,7 +86,9 @@ namespace Views
                         fieldDescription.textBox.Text
                     );
                     MessageBox.Show("Categoria alterada com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.parent.loadList();
                     this.Close();
+                    
                 }
             }
             catch (Exception err)

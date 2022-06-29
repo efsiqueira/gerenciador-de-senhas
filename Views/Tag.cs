@@ -58,13 +58,7 @@ namespace Views
             listView.AllowColumnReorder = true;
             listView.Sorting = SortOrder.Ascending;
 
-            foreach (Tag item in TagController.VisualizarTag())
-            {
-                newLine = new ListViewItem(item.Id.ToString());
-                newLine.SubItems.Add(item.Descricao);
-
-                listView.Items.Add(newLine);
-            }
+            this.loadList();
 
             this.Controls.Add(listView);
             this.Controls.Add(btIncluir);
@@ -72,11 +66,22 @@ namespace Views
             this.Controls.Add(btExcluir);
             this.Controls.Add(btVoltar);
         }
+        public void loadList()
+        {
+            this.listView.Items.Clear();
+
+            foreach (Tag item in TagController.VisualizarTag())
+            {
+                newLine = new ListViewItem(item.Id.ToString());
+                newLine.SubItems.Add(item.Descricao);
+
+                listView.Items.Add(newLine);
+            }
+        }
 
         private void btIncluirClick(object sender, EventArgs e)
         {
-            new FormTag(Operation.Create).Show();
-            this.Dispose();
+            new FormTag(this, Operation.Create).Show();
         }
 
         private void btAlterarClick(object sender, EventArgs e)
@@ -84,8 +89,7 @@ namespace Views
             try
             {
                 ListViewItem selectedItem = listView.SelectedItems[0];
-                new FormTag(Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
-                this.Dispose();
+                new FormTag(this, Operation.Update, Convert.ToInt32(selectedItem.Text)).Show();
             }
             catch (Exception)
             {
@@ -104,7 +108,7 @@ namespace Views
                 {
                     TagController.RemoverItem(tagId);
                 }
-                this.Close();
+                this.loadList();
             }
             catch (Exception)
             {

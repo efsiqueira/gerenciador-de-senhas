@@ -22,11 +22,14 @@ namespace Views
         ComboBox cbCategoria;
         Button btConfirm;
         Button btCancel;
+        SenhaView parent;
         public FormSenha(
+            SenhaView parent,
             Operation operation,
             int id = 0
         ) : base()
         {
+            this.parent = parent;
             option = operation;
             uid = id;
 
@@ -172,6 +175,7 @@ namespace Views
                         );
                     }
                     MessageBox.Show("Senha cadastrada com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.parent.loadList();
                     this.Close();
                 }
                 else if (option == Operation.Update)
@@ -196,6 +200,7 @@ namespace Views
                         );
                     }
                     MessageBox.Show("Senha alterada com sucesso!", "Sucesso", MessageBoxButtons.OK);
+                    this.parent.loadList();
                     this.Close();
                 }
             }
