@@ -12,7 +12,6 @@ namespace Views
     {
         public static Operation option;
         public static int uid;
-        public List<Field> fields;
         Button btConfirm;
         Button btCancel;
         UsuarioView parent;
