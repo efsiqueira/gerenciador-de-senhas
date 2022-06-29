@@ -15,11 +15,14 @@ namespace Views
         public List<Field> fields;
         Button btConfirm;
         Button btCancel;
+        TagView parent;
         public FormTag(
+            TagView parent,
             Operation operation,
             int id = 0
         ) : base()
         {
+            this.parent = parent;
             option = operation;
             uid = id;
 
@@ -70,6 +73,8 @@ namespace Views
                         fieldDescription.textBox.Text
                     );
                     MessageBox.Show("Tag criada com sucesso");
+                    this.parent.loadList();
+                    this.Close();
                 }
                 else if (option == Operation.Update)
                 {
@@ -78,6 +83,8 @@ namespace Views
                         fieldDescription.textBox.Text
                     );
                     MessageBox.Show("Tag alterada com sucesso");
+                    this.parent.loadList();
+                    this.Close();
                 }
             }
             catch (Exception err)

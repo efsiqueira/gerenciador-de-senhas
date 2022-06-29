@@ -112,7 +112,6 @@ namespace Views
                     CategoriaController.RemoverItem(categoriaId);
                     this.loadList();
                 }
-                // this.Close();
             }
             catch (Exception)
             {

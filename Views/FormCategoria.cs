@@ -87,6 +87,7 @@ namespace Views
                     );
                     MessageBox.Show("Categoria alterada com sucesso!", "Sucesso", MessageBoxButtons.OK);
                     this.parent.loadList();
+                    this.Close();
                     
                 }
             }
