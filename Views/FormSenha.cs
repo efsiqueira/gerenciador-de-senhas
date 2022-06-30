@@ -165,6 +165,10 @@ namespace Views
                         fieldSenhaEncrypt.textBox.Text,
                         txtProcedimento.Text
                     );
+                    if (cListBoxTags.CheckedItems.Count == 0)
+                    {
+                        throw new Exception("Tag haver pelo menos uma tag cadastrada.");
+                    }
                     foreach (var item in cListBoxTags.CheckedItems)
                     {
                         string tag = item.ToString();
@@ -192,6 +196,10 @@ namespace Views
                     );
                     IEnumerable<SenhaTag> tags = SenhaTagController.GetBySenhaId(uid);
                     List<int> checkedIds = new List<int>();
+                    if (cListBoxTags.CheckedItems.Count == 0)
+                    {
+                        throw new Exception("Tag haver pelo menos uma tag cadastrada.");
+                    }
                     foreach (object item in cListBoxTags.CheckedItems)
                     {
                         string tag = item.ToString();

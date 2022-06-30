@@ -16,31 +16,7 @@ namespace Controllers
             string Procedimento
         )
         {
-            if(String.IsNullOrEmpty(Nome))
-            {
-                throw new Exception("Nome não pode ser vazio.");
-            }
-            if(String.IsNullOrEmpty(Url))
-            {
-                throw new Exception("Url não pode ser vazio.");
-            }
-            Regex rx = new Regex(@"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$");
-            if(!rx.IsMatch(Url))
-            {
-                throw new Exception("Url inválido.");
-            }
-            if(String.IsNullOrEmpty(Usuario))
-            {
-                throw new Exception("Usuário não pode ser vazio.");
-            }
-            if(String.IsNullOrEmpty(SenhaEncrypt))
-            {
-                throw new Exception("Senha não pode ser vazio.");
-            }
-            if(String.IsNullOrEmpty(Procedimento))
-            {
-                throw new Exception("Procedimento não pode ser vazio.");
-            }
+            Validates(Nome, Url, Usuario, SenhaEncrypt);
 
             return new Senha(Nome, CategoriaId, Url, Usuario, SenhaEncrypt, Procedimento);
         }
@@ -58,35 +34,7 @@ namespace Controllers
             Senha senha = GetSenha(Id);
             Categoria categoria = CategoriaController.GetCategoria(CategoriaId);
 
-            if(String.IsNullOrEmpty(Nome))
-            {
-                Nome = senha.Nome;
-            }
-            if(String.IsNullOrEmpty(categoria.Nome.ToString()))
-            {
-                categoria.Nome = senha.Categoria.Nome;
-            }
-            if(String.IsNullOrEmpty(Url))
-            {
-                Url = senha.Url;
-            }
-            Regex rx = new Regex(@"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$");
-            if(!rx.IsMatch(Url))
-            {
-                throw new Exception("Url inválido.");
-            }
-            if(String.IsNullOrEmpty(Usuario))
-            {
-                Usuario = senha.Usuario;
-            }
-            if(String.IsNullOrEmpty(SenhaEncrypt))
-            {
-                SenhaEncrypt = senha.SenhaEncrypt;
-            }
-            if(String.IsNullOrEmpty(Procedimento))
-            {
-                Procedimento = senha.Procedimento;
-            }
+            Validates(Nome, Url, Usuario, SenhaEncrypt);
 
             Senha.AlterarSenha(
                 Id,
@@ -120,6 +68,31 @@ namespace Controllers
         public static IEnumerable<Senha> VisualizarSenha()
         {
             return Senha.GetSenhas();
+        }
+
+        public static void Validates(string Nome, string Url, string Usuario, string SenhaEncrypt)
+        {
+            if(String.IsNullOrEmpty(Nome))
+            {
+                throw new Exception("Nome não pode ser vazio.");
+            }
+            if(String.IsNullOrEmpty(Url))
+            {
+                throw new Exception("Url não pode ser vazio.");
+            }
+            Regex rx = new Regex(@"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$");
+            if(!rx.IsMatch(Url))
+            {
+                throw new Exception("Url inválido.");
+            }
+            if(String.IsNullOrEmpty(Usuario))
+            {
+                throw new Exception("Usuário não pode ser vazio.");
+            }
+            if(String.IsNullOrEmpty(SenhaEncrypt))
+            {
+                throw new Exception("Senha não pode ser vazio.");
+            }
         }
     }
 }
