@@ -88,7 +88,7 @@ Para essa aplicação serão necessárias as seguintes tarefas:
 - [x] Excluir Usuário
 - [x] Excluir Senha
 - [x] Criar Relação entre Senha e Tag
-- [ ] Excluir Relação entre Senha e Tag
+- [x] Excluir Relação entre Senha e Tag
 
 ### Diferenciais
 
