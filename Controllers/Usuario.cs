@@ -13,7 +13,8 @@ namespace Controllers
             string Senha
         )
         {
-            ValidateInsert(Nome, Email, Senha);
+            Validates(Nome, Email, Senha);
+            ValidateEmail(Email);
 
             return new Usuario(Nome, Email, BCrypt.Net.BCrypt.HashPassword(Senha));
         }
@@ -27,33 +28,12 @@ namespace Controllers
         {
             Usuario usuario = GetUsuario(Id);
 
-            if(String.IsNullOrEmpty(Nome))
-            {
-                Nome = usuario.Nome;
-            }
+            Validates(Nome, Email, Senha); 
 
-            if(String.IsNullOrEmpty(Email))
-            {
-                Email = usuario.Email;
-            }
-
-            Regex rx = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            if(!rx.IsMatch(Email))
-            {
-                throw new Exception("Email inválido.");
-            }
-
-            if(!String.IsNullOrEmpty(Senha) && !BCrypt.Net.BCrypt.Equals(Senha, usuario.Senha))
+            if (Senha != usuario.Senha)
             {
                 Senha = BCrypt.Net.BCrypt.HashPassword(Senha);
             }
-
-            int minChar = 8;
-            bool invalidPass = Senha.Length < minChar;
-            if (invalidPass)
-            {
-                throw new Exception("A senha deve possuir no mínimo 8 caracteres.");
-            }   
 
             Usuario.AlterarUsuario(
                 Id,
@@ -94,7 +74,7 @@ namespace Controllers
             Usuario.Auth(Email, Senha);
         }
 
-        public static void ValidateInsert(string Nome, string Email, string Senha)
+        public static void Validates(string Nome, string Email, string Senha)
         {
             if(String.IsNullOrEmpty(Nome))
             {
@@ -122,7 +102,19 @@ namespace Controllers
             if (invalidPass)
             {
                 throw new Exception("A senha deve possuir no mínimo 8 caracteres.");
-            }        
+            }
+        }
+
+        public static void ValidateEmail(string Email)
+        {
+            IEnumerable<Usuario> usuarios = VisualizarUsuario();
+            foreach(Usuario item in usuarios)
+            {
+                if (item.Email.ToString() == Email)
+                {
+                    throw new Exception("Email já existente.");
+                }
+            }
         }
     }
 }

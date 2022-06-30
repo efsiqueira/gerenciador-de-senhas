@@ -11,7 +11,7 @@ namespace Controllers
             string Descricao
         )
         {
-            ValidateInsert(Nome, Descricao);
+            Validates(Nome, Descricao);
 
             return new Categoria(Nome, Descricao);
         }
@@ -24,14 +24,7 @@ namespace Controllers
         {
             Categoria categoria = GetCategoria(Id);
 
-            if(String.IsNullOrEmpty(Nome))
-            {
-                Nome = categoria.Nome;
-            }
-            if(String.IsNullOrEmpty(Descricao))
-            {
-                Descricao = categoria.Descricao;
-            }
+            Validates(Nome, Descricao);
 
             Categoria.AlterarCategoria(
                 Id,
@@ -63,7 +56,7 @@ namespace Controllers
             return Categoria.GetCategorias();
         }
 
-        public static void ValidateInsert(string Nome, string Descricao)
+        public static void Validates(string Nome, string Descricao)
         {
             if(String.IsNullOrEmpty(Nome))
             {
